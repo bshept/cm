@@ -1,0 +1,6 @@
+host1.local ansible_ssh_host=172.25.61.149
+host2.local ansible_ssh_host=172.25.61.137
+
+[web]
+host3.local ansible_ssh_host=172.25.3.115
+

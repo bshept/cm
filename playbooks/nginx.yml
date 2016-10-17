@@ -1,0 +1,40 @@
+ - hosts: web
+  #gather_facts: no
+   remote_user: root
+  #become: yes
+  #become_user: root
+  #become_method: sudo
+   
+   tasks:
+     - name: Add nginx repo
+       yum:
+         #description: nginx repo
+         name: http://nginx.org/packages/centos/7/noarch/RPMS/nginx-release-centos-7-0.el7.ngx.noarch.rpm
+         #baseurl: http://nginx.org/packages/centos/7/noarch/RPMS/nginx-release-centos-7-0.el7.ngx.noarch.rpm
+         #enabled: yes
+         #gpgcheck: no
+      
+     - name: Install nginx
+       yum: 
+         name: nginx 
+         state: latest
+
+     - service: name=nginx state=started
+     - service: name=nginx enabled=yes
+
+     - firewalld: service=http permanent=true state=enabled
+     - firewalld: service=https permanent=true state=enabled
+     - shell: firewall-cmd --reload
+     
+#     - name: Copy configuration file nginx
+#       copy: src=../nginx/carrusmobile.conf dest=/etc/nginx/conf.d/carrusmobile.conf mode=0644
+     
+#     - name: Copy configuration ssl file nginx 
+#       copy: src=../nginx/bshept dest=/etc/nginx/ mode=0644
+
+     - name: Check that our config is valid
+       command: nginxctl configtest
+
+#   handlers:
+#     - name: restart nginx
+#       service: name=nginx state=restarted

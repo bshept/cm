@@ -1,0 +1,3 @@
+/var/lib/nginx/website   /carrusmobile/www
+
+/etc/nginx/conf.d
